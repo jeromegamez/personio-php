@@ -4,7 +4,7 @@ Interact with [Personio](https://www.personio.de) from your PHP application.
 
 [![Current version](https://img.shields.io/packagist/v/gamez/personio.svg)](https://packagist.org/packages/gamez/personio)
 [![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/personio.svg)]()
-[![Build Status](https://travis-ci.org/gamez/personio-php.svg?branch=master)](https://travis-ci.org/gamez/personio-php)
+[![Build Status](https://travis-ci.com/jeromegamez/personio-php.svg?branch=master)](https://travis-ci.com/jeromegamez/personio-php)
 
 This library comes with out of the box support for [Guzzle](http://docs.guzzlephp.org/en/stable/)
 and for [HTTP clients implementing PSR-18](https://packagist.org/providers/psr/http-client-implementation).
