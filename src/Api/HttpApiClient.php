@@ -17,11 +17,6 @@ final class HttpApiClient implements ApiClient
     private const BASE_URL = 'https://api.personio.de/v1/';
 
     /**
-     * @var array
-     */
-    private $defaultHeaders;
-
-    /**
      * @var ClientInterface
      */
     private $client;
@@ -50,16 +45,9 @@ final class HttpApiClient implements ApiClient
     {
     }
 
-    public static function with(string $clientId, string $clientSecret, ClientInterface $client, RequestFactoryInterface $requestFactory, array $options = null): self
+    public static function with(string $clientId, string $clientSecret, ClientInterface $client, RequestFactoryInterface $requestFactory): self
     {
-        $options = $options ?: [];
-        $userAgents = array_filter([$options['User-Agent'] ?? null, self::USER_AGENT]);
-
         $that = new self();
-        $that->defaultHeaders = [
-            'Accept' => 'application/json',
-            'User-Agent' => implode(' ', $userAgents),
-        ];
         $that->client = $client;
         $that->requestFactory = $requestFactory;
         $that->clientId = $clientId;
@@ -97,7 +85,10 @@ final class HttpApiClient implements ApiClient
     {
         $url = $this->createUrl($endpoint, $params);
 
-        $headers = $this->defaultHeaders;
+        $headers = [
+            'Accept' => 'application/json',
+            'User-Agent' => self::USER_AGENT,
+        ];
 
         $body = '';
         if (!empty($data)) {

@@ -8,6 +8,7 @@ use Gamez\Personio\Exception\ApiClientError;
 use Gamez\Personio\Support\JSON;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
+use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
@@ -18,11 +19,6 @@ use Psr\Http\Message\ResponseInterface;
 final class GuzzleApiClient implements ApiClient
 {
     private const BASE_URL = 'https://api.personio.de/v1/';
-
-    /**
-     * @var array
-     */
-    private $defaultHeaders;
 
     /**
      * @var GuzzleClientInterface
@@ -48,16 +44,9 @@ final class GuzzleApiClient implements ApiClient
     {
     }
 
-    public static function with(string $clientId, string $clientSecret, array $options = null, GuzzleClientInterface $client = null): self
+    public static function with(string $clientId, string $clientSecret, GuzzleClientInterface $client = null): self
     {
-        $options = $options ?: [];
-        $userAgents = array_filter([$options['User-Agent'] ?? null, self::USER_AGENT]);
-
         $that = new self();
-        $that->defaultHeaders = [
-            'Accept' => 'application/json',
-            'User-Agent' => implode(' ', $userAgents),
-        ];
         $that->client = $client ?: new GuzzleClient();
         $that->clientId = $clientId;
         $that->clientSecret = $clientSecret;
@@ -94,7 +83,10 @@ final class GuzzleApiClient implements ApiClient
     {
         $url = $this->createUrl($endpoint, $params);
 
-        $headers = $this->defaultHeaders;
+        $headers = [
+            'Accept' => 'application/json',
+            'User-Agent' => implode(' ', [self::USER_AGENT, default_user_agent()]),
+        ];
 
         $body = '';
         if (!empty($data)) {
