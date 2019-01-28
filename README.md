@@ -6,8 +6,7 @@ Interact with [Personio](https://www.personio.de) from your PHP application.
 [![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/personio.svg)]()
 [![Build Status](https://travis-ci.com/jeromegamez/personio-php.svg?branch=master)](https://travis-ci.com/jeromegamez/personio-php)
 
-This library comes with out of the box support for [Guzzle](http://docs.guzzlephp.org/en/stable/)
-and for [HTTP clients implementing PSR-18](https://packagist.org/providers/psr/http-client-implementation).
+---
 
 * [Requirements](#requirements)
 * [Installation](#installation)
@@ -20,6 +19,8 @@ and for [HTTP clients implementing PSR-18](https://packagist.org/providers/psr/h
   * [Simple API](#simple-api)
   * [Catching errors](#catching-errors)
 * [Roadmap](#roadmap)
+
+---
 
 ## Requirements
 
@@ -58,22 +59,13 @@ $apiClient = GuzzleApiClient::with($clientId, $clientSecret);
 
 ### Creating an API client based on a PSR-18 HTTP Client
 
-To be able to use a PSR-18 HTTP client, you need a 
-[PSR-17 HTTP Factory](https://packagist.org/providers/psr/http-factory-implementation) as well.
-
-If your application already has a PSR-18 HTTP client and a PSR-17 HTTP factory, skip the following
-`composer require` step. Otherwise, I recommend using 
-
-* [`nyholm/psr7`](https://github.com/Nyholm/psr7) as your PSR-17 HTTP factory
-* [A HTTPlug client/adapter](http://docs.php-http.org/en/latest/clients.html) as your PSR-18 HTTP client. 
-
-> **Note**: HTTPlug is currently in the process of making all clients and adapters ready for PSR-18. At the
-> time of this writing, the only released client/adapter implementing PSR-18 is the guzzle6-adapter.
-> For the following example I am using a feature branch of the cURL client so that it doesn't seem
-> as if you could have taken the Guzzle API Client anyways.
+The following example uses [kriswallsmith/buzz](https://github.com/kriswallsmith/Buzz) as the client 
+and [nyholm/psr7](https://github.com/Nyholm/psr7) as the Request Factory, but you can use any 
+library that implements [PSR-17](https://packagist.org/providers/psr/http-factory-implementation) 
+and [PSR-18](https://packagist.org/providers/psr/http-client-implementation).
 
 ```bash
-composer require "php-http/curl-client:dev-issue-41-psr-18 as 2.0" nyholm/psr7
+composer require --dev kriswallsmith/buzz:^1.0@beta nyholm/psr7:^1.0
 ```
 
 ```php
@@ -81,17 +73,16 @@ composer require "php-http/curl-client:dev-issue-41-psr-18 as 2.0" nyholm/psr7
 // a file in the same directory in which you perfomed the composer command(s)
 require 'vendor/autoload.php';
 
+use Buzz\Client\FileGetContents;
 use Gamez\Personio\Api\HttpApiClient;
-use Http\Client\Curl\Client as CurlClient;
 use Nyholm\Psr7\Factory\Psr17Factory;
 
-$accountName = 'xxx';
-$apiKey = 'xxx';
+$clientId = 'xxx';
+$clientSecret = 'xxx';
 
 $psr17Factory = new Psr17Factory();
-$curlClient = new CurlClient($psr17Factory, $psr17Factory);
-
-$apiClient = HttpApiClient::with($accountName, $apiKey, $curlClient, $psr17Factory);
+$httpClient = new FileGetContents($psr17Factory);
+$apiClient = HttpApiClient::with($clientId, $clientSecret, $httpClient, $psr17Factory);
 ```
 
 ### Creating your own API client
