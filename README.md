@@ -3,7 +3,7 @@
 Interact with [Personio](https://www.personio.de) from your PHP application.
 
 [![Current version](https://img.shields.io/packagist/v/gamez/personio.svg)](https://packagist.org/packages/gamez/personio)
-[![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/personio.svg)]()
+![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/personio.svg)
 [![Build Status](https://travis-ci.com/jeromegamez/personio-php.svg?branch=2.x)](https://travis-ci.com/jeromegamez/personio-php)
 
 ---
@@ -28,9 +28,7 @@ Interact with [Personio](https://www.personio.de) from your PHP application.
 
 ## Installation
 
-## Installation
-
-In order to use this library, you need a [PSR-18](https://packagist.org/providers/psr/http-client-implementation), and a
+In order to use this library, you need a [PSR-18 HTTP Client](https://packagist.org/providers/psr/http-client-implementation), and a
 [PSR-17 HTTP Message Factory](https://packagist.org/providers/psr/http-factory-implementation).
 
 ### Example using `kriswallsmith/buzz` and `nyholm/psr7`
