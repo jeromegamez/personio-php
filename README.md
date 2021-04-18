@@ -4,7 +4,7 @@ Interact with [Personio](https://www.personio.de) from your PHP application.
 
 [![Current version](https://img.shields.io/packagist/v/gamez/personio.svg)](https://packagist.org/packages/gamez/personio)
 [![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/personio.svg)]()
-[![Build Status](https://travis-ci.com/jeromegamez/personio-php.svg?branch=master)](https://travis-ci.com/jeromegamez/personio-php)
+[![Build Status](https://travis-ci.com/jeromegamez/personio-php.svg?branch=2.x)](https://travis-ci.com/jeromegamez/personio-php)
 
 ---
 
