@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.1 - 2021-04-18
 
+* Fixed data being used as URL params for POST and PATCH requests
 * The signatures of the following methods have changed
   * `GuzzleApiClient::with(string $clientId, string $clientSecret, GuzzleClientInterface $client = null)`
     + Removed the `$options` parameter. If you want to modify the behaviour of the underlying GuzzleHTTP client,
