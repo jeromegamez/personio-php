@@ -10,98 +10,75 @@ Interact with [Personio](https://www.personio.de) from your PHP application.
 
 * [Requirements](#requirements)
 * [Installation](#installation)
-* [Setup](#setup)
-  * [Creating an API client based on Guzzle](#creating-an-api-client-based-on-guzzle)
-  * [Creating an API client based on a PSR-18 HTTP Client](#creating-an-api-client-based-on-a-psr-18-http-client)
-  * [Creating your own API client](#creating-your-own-api-client)
-  * [Caching HTTP requests](#caching-http-requests)
 * [Usage](#usage)
+  * [Basic API client](#basic-api-client)
   * [Simple API](#simple-api)
   * [Catching errors](#catching-errors)
-* [Roadmap](#roadmap)
+  * [Caching HTTP requests](#caching-http-requests)
+  * [Creating your own API client](#creating-your-own-api-client)
+* [License](#license)
 
 ---
 
 ## Requirements
 
-- A Client ID and Client Secret from (You can generate them at https://xxx.personio.de/configuration/api/credentials)
+- A Client ID and Client Secret (You can generate them at https://xxx.personio.de/configuration/api/credentials)
 
 ---
 
 ## Installation
 
-```bash
-composer require gamez/personio
-```
+## Installation
 
----
+In order to use this library, you need a [PSR-18](https://packagist.org/providers/psr/http-client-implementation), and a
+[PSR-17 HTTP Message Factory](https://packagist.org/providers/psr/http-factory-implementation).
 
-## Setup
-
-### Creating an API client based on Guzzle
+### Example using `kriswallsmith/buzz` and `nyholm/psr7`
 
 ```bash
-composer require guzzlehttp/guzzle
-``` 
-
-```php
-<?php
-// a file in the same directory in which you perfomed the composer command(s)
-require 'vendor/autoload.php';
-
-use Gamez\Personio\Api\GuzzleApiClient;
-
-$clientId = 'xxx';
-$clientSecret = 'xxx';
-
-$apiClient = GuzzleApiClient::with($clientId, $clientSecret);
-```
-
-### Creating an API client based on a PSR-18 HTTP Client
-
-The following example uses [kriswallsmith/buzz](https://github.com/kriswallsmith/Buzz) as the client 
-and [nyholm/psr7](https://github.com/Nyholm/psr7) as the Request Factory, but you can use any 
-library that implements [PSR-17](https://packagist.org/providers/psr/http-factory-implementation) 
-and [PSR-18](https://packagist.org/providers/psr/http-client-implementation).
-
-```bash
-composer require kriswallsmith/buzz:^1.0 nyholm/psr7:^1.0
+composer require kriswallsmith/buzz nyholm/psr7 gamez/personio
 ```
 
 ```php
-<?php
-// a file in the same directory in which you perfomed the composer command(s)
-require 'vendor/autoload.php';
-
-use Buzz\Client\FileGetContents;
-use Gamez\Personio\Api\HttpApiClient;
-use Nyholm\Psr7\Factory\Psr17Factory;
-
-$clientId = 'xxx';
-$clientSecret = 'xxx';
-
-$psr17Factory = new Psr17Factory();
-$httpClient = new FileGetContents($psr17Factory);
-$apiClient = HttpApiClient::with($clientId, $clientSecret, $httpClient, $psr17Factory);
+$requestFactory = new \Nyholm\Psr7\Factory\Psr17Factory();
+$httpClient = new \Buzz\Client\FileGetContents($requestFactory);
 ```
 
-### Creating your own API client
+### Example using `guzzlehttp/guzzle` and `laminas/laminas-diactoros`
 
-If you want to create your own API client, implement the `\Gamez\Personio\Api\ApiClient` interface
-and use your implementation.
+```bash
+composer require guzzlehttp/guzzle laminas/laminas-diactoros gamez/personio
+```
 
-### Caching HTTP requests
-
-To cache HTTP requests to the API, you can add a caching middleware/plugin to the HTTP client
-before injecting it into the API client instance. See the documentation of the respective
-component for instructions on how to do that.
-
-* Guzzle: [kevinrob/guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware)
-* HTTPlug: [Cache Plugin](http://docs.php-http.org/en/latest/plugins/cache.html)
+```php
+$requestFactory = new \Laminas\Diactoros\RequestFactory();
+$httpClient = new \GuzzleHttp\Client();
+```
 
 ---
 
 ## Usage
+
+### Basic API client
+
+Once you have created an HTTP Client and Request Factory as described in the installation section,
+you can create an API client with them:
+
+```php
+use Gamez\Personio\Api\HttpApiClient;
+
+$clientId = 'xxx';
+$clientSecret = 'xxx';
+
+/**
+ * @var \Psr\Http\Message\RequestFactoryInterface $requestFactory
+ * @var \Psr\Http\Client\ClientInterface $httpClient
+ */
+$apiClient = HttpApiClient::with($clientId, $clientSecret, $httpClient, $requestFactory);
+```
+
+This API client allows you to make authenticated HTTP requests to the API of your Personio account -
+see [Personio's REST API documentation](https://developer.personio.de/reference) for the endpoints you can use.
 
 ### Simple API
 
@@ -147,13 +124,22 @@ try {
 }
 ```
 
----
+### Caching HTTP requests
 
-## Roadmap
+To cache HTTP requests to the API, you can add a caching middleware/plugin to the HTTP client
+before injecting it into the API client instance. See the documentation of the respective
+component for instructions on how to do that.
 
-* Tests
-* Interfaces and value objects
-* CLI tool
-* Better documentation
+* Guzzle: [kevinrob/guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware)
+* HTTPlug: [Cache Plugin](http://docs.php-http.org/en/latest/plugins/cache.html)
 
----
+### Creating your own API client
+
+If you want to create your own API client, implement the `\Gamez\Personio\Api\ApiClient` interface
+and use your implementation.
+
+## License
+
+`gamez/personio` is licensed under the [MIT License](LICENSE).
+
+Your use of Personio is governed by the [Terms of Service for Personio](https://www.personio.com/gtc/).
