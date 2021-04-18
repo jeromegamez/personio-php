@@ -5,6 +5,8 @@ Interact with [Personio](https://www.personio.de) from your PHP application.
 [![Current version](https://img.shields.io/packagist/v/gamez/personio.svg)](https://packagist.org/packages/gamez/personio)
 ![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/personio.svg)
 [![Build Status](https://travis-ci.com/jeromegamez/personio-php.svg?branch=2.x)](https://travis-ci.com/jeromegamez/personio-php)
+[![Discord](https://img.shields.io/discord/807679292573220925.svg?color=7289da&logo=discord)](https://discord.gg/Yacm7unBsr)
+[![Sponsor](https://img.shields.io/static/v1?logo=GitHub&label=Sponsor&message=%E2%9D%A4&color=ff69b4)](https://github.com/sponsors/jeromegamez)
 
 ---
 
