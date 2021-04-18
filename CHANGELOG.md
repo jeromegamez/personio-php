@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.0 - 2021-04-18
 
 * Dropped support for PHP <7.4
 * Removed the `GuzzleApiClient` implementation, because Guzzle implements PSR-18 since release 7.0. If you
