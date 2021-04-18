@@ -16,30 +16,11 @@ final class HttpApiClient implements ApiClient
 {
     private const BASE_URL = 'https://api.personio.de/v1/';
 
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * @var RequestFactoryInterface
-     */
-    private $requestFactory;
-
-    /**
-     * @var string
-     */
-    private $clientId;
-
-    /**
-     * @var string
-     */
-    private $clientSecret;
-
-    /**
-     * @var string|null
-     */
-    private $token;
+    private ClientInterface $client;
+    private RequestFactoryInterface $requestFactory;
+    private string $clientId;
+    private string $clientSecret;
+    private ?string $token = null;
 
     private function __construct()
     {
@@ -138,7 +119,7 @@ final class HttpApiClient implements ApiClient
         $request->getBody()->write($body);
 
         foreach ($headers as $name => $value) {
-            $request = $request->withAddedHeader((string) $name, $value);
+            $request = $request->withAddedHeader($name, $value);
         }
 
         return $request;

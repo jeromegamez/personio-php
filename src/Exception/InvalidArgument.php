@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Gamez\Personio\Exception;
 
+use InvalidArgumentException;
 use Throwable;
 
-final class InvalidArgument extends \InvalidArgumentException implements PersonioException
+final class InvalidArgument extends InvalidArgumentException implements PersonioException
 {
     public static function because(string $reason, Throwable $previous = null): self
     {

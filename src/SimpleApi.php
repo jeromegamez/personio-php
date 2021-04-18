@@ -9,10 +9,7 @@ use Gamez\Personio\Support\JSON;
 
 final class SimpleApi
 {
-    /**
-     * @var ApiClient
-     */
-    private $client;
+    private ApiClient $client;
 
     private function __construct()
     {
@@ -53,7 +50,7 @@ final class SimpleApi
      */
     public function getEmployee($id): array
     {
-        return $this->get("company/employees/{$id}");
+        return $this->get("company/employees/$id");
     }
 
     /**
@@ -97,7 +94,7 @@ final class SimpleApi
      */
     public function deleteAttendance($id): void
     {
-        $this->client->delete("company/attendances/{$id}");
+        $this->client->delete("company/attendances/$id");
     }
 
     /**
@@ -145,7 +142,7 @@ final class SimpleApi
      */
     public function getTimeOff($id): array
     {
-        return $this->get("company/time-offs/{$id}");
+        return $this->get("company/time-offs/$id");
     }
 
     /**
@@ -171,7 +168,7 @@ final class SimpleApi
      */
     public function deleteTimeOff($id): void
     {
-        $this->client->delete("company/time-offs/{$id}");
+        $this->client->delete("company/time-offs/$id");
     }
 
     /**
