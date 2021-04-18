@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "ext-json": "*",
         "ext-mbstring": "*",
         "psr/http-client": "^1.0",
@@ -19,10 +19,10 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "guzzlehttp/guzzle": "^6.3|^7.3",
+        "guzzlehttp/guzzle": "^^7.3",
         "kriswallsmith/buzz": "^1.2",
         "nyholm/psr7": "^1.0",
-        "symfony/var-dumper": "^4.2|^5.2"
+        "symfony/var-dumper": "^5.2"
     },
     "suggest": {
         "guzzlehttp/guzzle": "Allows the usage of the Guzzle Api Client",

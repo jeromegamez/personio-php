@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Dropped support for PHP <7.4
+
 ## 1.1 - 2021-04-18
 
 * Fixed data being used as URL params for POST and PATCH requests
