@@ -81,6 +81,10 @@ final class HttpApiClient implements ApiClient
         return $this->request('DELETE', $endpoint, $params);
     }
 
+    /**
+     * @param array<string, numeric|string>|null $params
+     * @param array<string, numeric|string>|null $data
+     */
     private function request(string $method, string $endpoint, array $params = null, array $data = null): ResponseInterface
     {
         $url = $this->createUrl($endpoint, $params);
@@ -108,6 +112,9 @@ final class HttpApiClient implements ApiClient
         return $response;
     }
 
+    /**
+     * @param array<string, numeric|string>|null $params
+     */
     private function createUrl(string $endpoint, array $params = null): string
     {
         $url = self::BASE_URL.$endpoint;
@@ -119,6 +126,9 @@ final class HttpApiClient implements ApiClient
         return $url;
     }
 
+    /**
+     * @param array<string, string|string[]> $headers
+     */
     private function createRequest(string $method, string $url, array $headers = null, string $body = null): RequestInterface
     {
         $headers = $headers ?: [];
