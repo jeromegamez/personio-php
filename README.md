@@ -1,5 +1,8 @@
 # Personio SDK for PHP
 
+> [!NOTE]
+> I don't have developer access to Personio anymore, so I can't continue to maintain this project.
+
 Interact with [Personio](https://www.personio.de) from your PHP application.
 
 [![Current version](https://img.shields.io/packagist/v/gamez/personio.svg)](https://packagist.org/packages/gamez/personio)
